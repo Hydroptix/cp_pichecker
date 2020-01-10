@@ -1,3 +1,2 @@
 Host *.csc.calpoly.edu cp_csc
 	IdentityFile ~/.ssh/id_cpcsc
-	User sfrazee
