@@ -5,7 +5,7 @@
 for HOST in pi01 pi02 pi03 pi04 pi05 pi06 pi07 pi08 pi09
 do	
 	#connect quietly and fail if it asks for a password or doesn't connect, if connection is successful get the load
-	LOAD=`ssh -q -o ConnectTimeout=5 -o BatchMode=yes -o PasswordAuthentication=no -o StrictHostKeyChecking=no $HOST.csc.calpoly.edu cat /proc/loadavg | awk '{print $1}'`
+	LOAD=`ssh -q -o ConnectTimeout=1 -o BatchMode=yes -o PasswordAuthentication=no -o StrictHostKeyChecking=no $HOST.csc.calpoly.edu cat /proc/loadavg | awk '{print $1}'`
 	if [ -z "$LOAD" ]
 	then
 		echo $HOST down
