@@ -26,7 +26,7 @@ The status/load of each Pi will be displayed, and the name of the Pi with the lo
 
 ## Brief explanation of script behavior
 1. Attempt to SSH into each Pi and immediately exit.
-2. If the connection succeeded, SSH into the Pi again and get system load from `/proc/loadavg`.
+2. If the connection succeeded, get system load from `/proc/loadavg`.
 3. Report the lowest load, or none if none of the connections succeeded.
 
 ## Known Issues
