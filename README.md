@@ -41,8 +41,9 @@ sh checkpi.sh
 The status/load of each Pi will be displayed, and the name of the Pi with the lowest load will be indicated.
 
 ## Brief explanation of script behavior
-1. Attempt to SSH into each Pi and immediately exit.
-2. If the connection succeeded, get system load from `/proc/loadavg`.
+1. Ping each Pi to see if they are available.
+2. If the ping succeeded, attempt to ssh into the Pi.
+3. If ssh auth succeeded, get system load from `/proc/loadavg`.
 3. Report the lowest load, or none if none of the connections succeeded.
 
 ## Known Issues
