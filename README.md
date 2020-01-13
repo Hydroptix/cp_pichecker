@@ -9,10 +9,11 @@ This script requires you to have a **passwordless** RSA key set up for Cal Poly'
 
 ### Setting up a second RSA key
 1. SSH into Cal Poly Unix servers.
-2. Generate the new RSA key with `ssh-keygen`.
-3. Don't use the default file, as you could override your previous key. I used `~/.ssh/cp_csc` for my key.
-4. Press enter twice to dismiss the password prompt.
-5. Make sure Cal Poly Unix servers will accept the key. The easiest way I found to do this was to use ssh-copy-id. My command looked like this:
+2. Generate the new RSA key. Don't use the default file, as you could override your previous key. I used `~/.ssh/cp_csc` for my key.
+```
+ssh-keygenls -N "" -f test
+```
+3. Make sure Cal Poly Unix servers will accept the key. The easiest way I found to do this was to use ssh-copy-id. My command looked like this:
 ```
 ssh-copy-id -i ~/.ssh/cp_csc unix1.csc.calpoly.edu
 ```
@@ -22,15 +23,15 @@ ssh-copy-id -i ~/.ssh/cp_csc pi02.csc.calpoly.edu
 ssh-copy-id -i ~/.ssh/cp_csc pi08.csc.calpoly.edu
 ```
 
-6. Make sure the ssh command uses the new key first when connecting to the Pis. The repository includes a sample config that tells ssh to use the key with the path `~/.ssh/cp_csc` whenever connecting to a host that ends with the address csc.calpoly.edu. Modify the file as appropriate and copy it from the repository to the ~/.ssh directory.
+4. Make sure the ssh command uses the new key first when connecting to the Pis. The repository includes a sample config that tells ssh to use the key with the path `~/.ssh/cp_csc` whenever connecting to a host that ends with the address csc.calpoly.edu. Modify the file as appropriate and copy it from the repository to the ~/.ssh directory.
 ```
 cp ./config ~/.ssh/
 ```
-7. Make sure the ssh config file has the appropriate permissions. 
+5. Make sure the ssh config file has the appropriate permissions. 
 ```
 chmod 0600 ~/.ssh/config
 ```
-8. The script should now be able to authenticate automatically and securely.
+6. The script should now be able to authenticate automatically and securely.
 
 ## Usage
 It is recommended to run the script from Cal Poly Unix servers, not local machines.
