@@ -20,7 +20,7 @@ Run the included setup script, which:
 1. SSH into Cal Poly Unix servers.
 2. Generate the new RSA key. Don't use the default file, as you could override your previous key. I used `~/.ssh/cp_csc` for my key.
 ```
-ssh-keygenls -N "" -f test
+ssh-keygen -N "" -f test
 ```
 3. Make sure Cal Poly Unix servers will accept the key. The easiest way I found to do this was to use ssh-copy-id. My command looked like this:
 ```
