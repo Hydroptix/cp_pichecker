@@ -4,25 +4,32 @@
 #loop through all the Pis that should be available
 for HOST in pi01 pi02 pi03 pi04 pi05 pi06 pi07 pi08 pi09
 do	
-	#connect quietly and fail if it asks for a password or doesn't connect, if connection is successful get the load
-	LOAD=`ssh -q -o ConnectTimeout=1 -o BatchMode=yes -o PasswordAuthentication=no -o StrictHostKeyChecking=no $HOST.csc.calpoly.edu cat /proc/loadavg | awk '{print $1}'`
-	if [ -z "$LOAD" ]
+	ping -c 1 -w 1 $HOST.csc.calpoly.edu &>/dev/null
+	if [ $? -eq 0 ]
 	then
-		echo $HOST down
-	else
-		#save this host if it has the lowest load
-		echo $HOST has load $LOAD
-		if [ -z "$BESTHOST" ]
+
+		#connect quietly and fail if it asks for a password or doesn't connect, if connection is successful get the load
+		LOAD=`ssh -q -o ConnectTimeout=1 -o BatchMode=yes -o PasswordAuthentication=no -o StrictHostKeyChecking=no $HOST.csc.calpoly.edu cat /proc/loadavg | awk '{print $1}'`
+		if [ -z "$LOAD" ]
 		then
-			BESTHOST=$HOST
-			BESTLOAD=$LOAD
+			echo $HOST authentication failed
 		else
-			if (( $(echo "$BESTLOAD > $LOAD" |bc -l) ));
+			#save this host if it has the lowest load
+			echo $HOST has load $LOAD
+			if [ -z "$BESTHOST" ]
 			then
 				BESTHOST=$HOST
 				BESTLOAD=$LOAD
+			else
+				if (( $(echo "$BESTLOAD > $LOAD" |bc -l) ));
+				then
+					BESTHOST=$HOST
+					BESTLOAD=$LOAD
+				fi
 			fi
 		fi
+	else
+		echo $HOST down
 	fi
 done
 
