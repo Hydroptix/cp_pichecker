@@ -7,7 +7,16 @@ This script uses ssh with the `-o StrictHostKeyChecking=no` option to prevent fa
 ## Setup
 This script requires you to have a **passwordless** RSA key set up for Cal Poly's CSC unix servers. I recommend creating a second key separate from your main key for usage only when connecting from one of Cal Poly's servers to another.
 
-### Setting up a second RSA key
+### Automatic key generation
+```
+sh key_setup.sh
+```
+Run the included setup script, which:
+1. Generates a new RSA key to `~/.ssh/cp_pi_checker`
+2. Adds the key to unix1.csc.calpoly.edu, pi02.csc.calpoly.edu, and pi08.csc.calpoly.edu
+3. Adds a rule (if the rule doesn't already exist) to `~/.ssh/config` to automatically use the new key when connecting to any of the Cal Poly CSC Pis
+
+### Manually setting up a second RSA key
 1. SSH into Cal Poly Unix servers.
 2. Generate the new RSA key. Don't use the default file, as you could override your previous key. I used `~/.ssh/cp_csc` for my key.
 ```
